@@ -1,0 +1,149 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+
+// 生成指定范围内的随机整数
+int generateRandomInt(int min, int max) {
+    return min + rand() % (max - min + 1);
+}
+
+// 生成指定长度的随机数组
+void generateRandomArray(int arr[], int size, int min, int max) {
+    for (int i = 0; i < size; i++) {
+        arr[i] = generateRandomInt(min, max);
+    }
+}
+
+// 打印数组
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+// 生成指定长度的随机字符串
+void generateRandomString(char str[], int length) {
+    const char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    for (int i = 0; i < length; i++) {
+        int index = rand() % (sizeof(charset) - 1);
+        str[i] = charset[index];
+    }
+    str[length] = '\0';
+}
+
+// 生成指定长度的随机密码
+void generateRandomPassword(char password[], int length) {
+    const char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;':\",./<>?";
+    for (int i = 0; i < length; i++) {
+        int index = rand() % (sizeof(charset) - 1);
+        password[i] = charset[index];
+    }
+    password[length] = '\0';
+}
+
+// 从数组中随机选择一个元素
+int randomSelectFromArray(int arr[], int size) {
+    int index = rand() % size;
+    return arr[index];
+}
+
+// 随机打乱数组元素的顺序
+void shuffleArray(int arr[], int size) {
+    for (int i = size - 1; i > 0; i--) {
+        int j = rand() % (i + 1);
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
+
+// 生成随机的浮点数
+float generateRandomFloat(float min, float max) {
+    float scale = rand() / (float)RAND_MAX;
+    return min + scale * (max - min);
+}
+
+// 生成随机的布尔值
+int generateRandomBool() {
+    return rand() % 2;
+}
+
+// 随机选择一个字符
+char randomSelectChar() {
+    const char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    int index = rand() % (sizeof(charset) - 1);
+    return charset[index];
+}
+
+// 随机选择一个符号
+char randomSelectSymbol() {
+    const char charset[] = "!@#$%^&*()_+-=[]{}|;':\",./<>?";
+    int index = rand() % (sizeof(charset) - 1);
+    return charset[index];
+}
+
+// 生成随机的颜色值（RGB）
+void generateRandomColor(int color[]) {
+    color[0] = generateRandomInt(0, 255);
+    color[1] = generateRandomInt(0, 255);
+    color[2] = generateRandomInt(0, 255);
+}
+
+// 打印颜色值
+void printColor(int color[]) {
+    printf("RGB(%d, %d, %d)\n", color[0], color[1], color[2]);
+}
+
+int main() {
+    // 初始化随机数种子
+    srand(time(NULL));
+
+    // 测试生成随机整数
+    printf("随机整数: %d\n", generateRandomInt(1, 100));
+
+    // 测试生成随机数组
+    int arr[20];
+    generateRandomArray(arr, 20, 1, 100);
+    printf("随机数组: ");
+    printArray(arr, 20);
+
+    // 测试随机打乱数组
+    shuffleArray(arr, 20);
+    printf("打乱后的随机数组: ");
+    printArray(arr, 20);
+
+    // 测试从数组中随机选择元素
+    printf("从数组中随机选择的元素: %d\n", randomSelectFromArray(arr, 20));
+
+    // 测试生成随机字符串
+    char str[21];
+    generateRandomString(str, 20);
+    printf("随机字符串: %s\n", str);
+
+    // 测试生成随机密码
+    char password[11];
+    generateRandomPassword(password, 10);
+    printf("随机密码: %s\n", password);
+
+    // 测试生成随机浮点数
+    printf("随机浮点数: %.2f\n", generateRandomFloat(1.0, 10.0));
+
+    // 测试生成随机布尔值
+    printf("随机布尔值: %s\n", generateRandomBool() ? "true" : "false");
+
+    // 测试随机选择字符
+    printf("随机选择的字符: %c\n", randomSelectChar());
+
+    // 测试随机选择符号
+    printf("随机选择的符号: %c\n", randomSelectSymbol());
+
+    // 测试生成随机颜色
+    int color[3];
+    generateRandomColor(color);
+    printf("随机颜色: ");
+    printColor(color);
+
+    return 0;
+}    
